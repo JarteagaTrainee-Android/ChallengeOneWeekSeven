@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NASA</string>
+
+    <string name="tag_bottomSheet">bottomSheet</string>
+</resources>
