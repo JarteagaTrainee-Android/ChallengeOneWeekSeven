@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -15,8 +13,6 @@ import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.applaudostudio.weeksevenchallengeone.R;
 import com.applaudostudio.weeksevenchallengeone.adapter.ImageListAdapter;
@@ -59,6 +55,7 @@ public class DetailFragment extends Fragment implements ImageListAdapter.ItemSel
         if (getArguments() != null) {
             mDataSet = getArguments().getParcelableArrayList(KEY_ARG_DATASET);
             mPosition = getArguments().getInt(KEY_ARG_POSITION);
+
         }
     }
 

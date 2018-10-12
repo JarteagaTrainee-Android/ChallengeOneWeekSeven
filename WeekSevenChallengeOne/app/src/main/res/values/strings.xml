@@ -2,4 +2,7 @@
     <string name="app_name">NASA</string>
 
     <string name="tag_bottomSheet">bottomSheet</string>
+    <string name="share">SHARE</string>
+    <string name="launch_date">Launch Date:</string>
+    <string name="landing_date">Landing Date</string>
 </resources>

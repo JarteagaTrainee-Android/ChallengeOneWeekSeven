@@ -1,8 +1,10 @@
 package com.applaudostudio.weeksevenchallengeone.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.applaudostudio.weeksevenchallengeone.model.gsonmodels.Photos;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
     private static final String ARG_DATA = "PHOTOS_DATA";
@@ -22,8 +25,10 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     TextView txtLanding;
     @BindView(R.id.textViewLaunchDate)
     TextView txtLaunch;
-
-    Photos mitem;
+    @BindView(R.id.textShare)
+    TextView txtShare;
+    private ShareActionProvider mShareActionProvider;
+    Photos mItem;
 
     static BottomSheetFragment newInstance(Photos item) {
         BottomSheetFragment sheetFragment = new BottomSheetFragment();
@@ -38,7 +43,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mitem = getArguments().getParcelable(ARG_DATA);
+            mItem = getArguments().getParcelable(ARG_DATA);
         }
 
 
@@ -55,8 +60,20 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        txtTitle.setText(mitem.getCamera().getName());
-        txtLanding.setText(mitem.getRover().getLanding_date());
-        txtLaunch.setText(mitem.getRover().getLaunch_date());
+        txtTitle.setText(mItem.getCamera().getName());
+        txtLanding.setText(mItem.getRover().getLanding_date());
+        txtLaunch.setText(mItem.getRover().getLaunch_date());
+    }
+
+
+    @OnClick(R.id.textShare)
+    void shareItem(View view){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,
+                "Hey check this NASA IMAGE at: "+mItem.getImg_src());
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+
     }
 }
