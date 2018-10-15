@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements ImageListFragment
     @Override
     protected void onResume() {
         super.onResume();
-        //If the action bar is hidde on the detail view this will hide it
+        //If the action bar is hide on the detail view this will hide it
         if (getSupportActionBar() != null)
             getSupportActionBar().show();
     }
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements ImageListFragment
     }
 
     /***
-     * check the permisson to write files for cache
+     * check the permission to write files for cache
      * @return return true or false
      */
     private boolean checkAndRequestPermissions() {

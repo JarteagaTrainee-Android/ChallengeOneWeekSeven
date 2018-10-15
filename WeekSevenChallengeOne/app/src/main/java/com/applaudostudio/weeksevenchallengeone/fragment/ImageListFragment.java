@@ -67,9 +67,9 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
     }
 
     /***
-     * function to inflate the view and init the butterknife
+     * function to inflate the view and init the butter knife
      * @param inflater inflater for the xml
-     * @param container viewgroup container
+     * @param container view group container
      * @param savedInstanceState saved instance
      * @return returns the view
      */
@@ -83,7 +83,7 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
     }
 
     /***
-     * init the data and the adapter for the recyclerview
+     * init the data and the adapter for the recycler view
      * @param savedInstanceState saved data for bundle
      */
     @Override

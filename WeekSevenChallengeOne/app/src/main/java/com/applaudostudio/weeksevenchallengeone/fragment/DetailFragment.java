@@ -69,7 +69,7 @@ public class    DetailFragment extends Fragment implements ImageListAdapter.Item
     }
 
     /***
-     * function to inflate the view and init the butterknife
+     * function to inflate the view and init the butter knife
      * @param inflater xml inflater
      * @param container view group container
      * @param savedInstanceState bundle for saved instance
@@ -95,7 +95,7 @@ public class    DetailFragment extends Fragment implements ImageListAdapter.Item
 
     /***
      * funtion to init the adapter an set the data for the gallery view.
-     * @param savedInstanceState bundle for saveinstance
+     * @param savedInstanceState bundle for save instance
      */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -112,7 +112,7 @@ public class    DetailFragment extends Fragment implements ImageListAdapter.Item
 
     /***
      * get the context for the callback
-     * @param context
+     * @param context context as param
      */
     @Override
     public void onAttach(Context context) {

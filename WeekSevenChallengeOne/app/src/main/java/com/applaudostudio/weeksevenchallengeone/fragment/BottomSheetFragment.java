@@ -34,7 +34,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     /***
      * instace of the fragment
      * @param item with the data
-     * @return returns a fragment instacne
+     * @return returns a fragment instance
      */
     static BottomSheetFragment newInstance(Photos item) {
         BottomSheetFragment sheetFragment = new BottomSheetFragment();
@@ -46,7 +46,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     /***
-     * Create to get the data on on thte params
+     * Create to get the data on on the params
      * @param savedInstanceState bundle saved
      */
     @Override
@@ -61,7 +61,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
      * Inflate the view and init the butter
      * @param inflater the view inflater
      * @param container view group container
-     * @param savedInstanceState saved dunble
+     * @param savedInstanceState saved bundle
      * @return returns the view
      */
     @Override

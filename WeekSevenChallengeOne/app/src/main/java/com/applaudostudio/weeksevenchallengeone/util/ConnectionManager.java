@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /***
- * Class with the functons to check the internet connection
+ * Class with the functions to check the internet connection
  */
 public class ConnectionManager {
 
