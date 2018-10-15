@@ -2,6 +2,7 @@ package com.applaudostudio.weeksevenchallengeone.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -42,6 +43,10 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
         // Required empty public constructor
     }
 
+    /***
+     * Function to generate instances for the fragment
+     * @return return instances
+     */
     public static ImageListFragment newInstance() {
         ImageListFragment fragment = new ImageListFragment();
         Bundle args = new Bundle();
@@ -49,6 +54,10 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
         return fragment;
     }
 
+    /***
+     * init the data and the pager count
+     * @param savedInstanceState saved instance for saved data
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +66,15 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
 
     }
 
+    /***
+     * function to inflate the view and init the butterknife
+     * @param inflater inflater for the xml
+     * @param container viewgroup container
+     * @param savedInstanceState saved instance
+     * @return returns the view
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_image_list, container, false);
@@ -66,6 +82,10 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
         return v;
     }
 
+    /***
+     * init the data and the adapter for the recyclerview
+     * @param savedInstanceState saved data for bundle
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -78,7 +98,7 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
         getUsersList(mPagerCount);
         mRecyclerViewImages.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (!recyclerView.canScrollVertically(1)) {
                     mPagerCount++;
@@ -88,6 +108,10 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
         });
     }
 
+    /***
+     * callback for the the fragment on the activity
+     * @param context context as param
+     */
     @Override
     public void onAttach(Context context) {
         mCallBack = (GridElementListener) context;
@@ -101,13 +125,19 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
     }
 
 
+    /***
+     * function to get the user as list
+     * @param page page counter
+     */
     public void getUsersList(int page) {
         Call<JsonModel> call = mPhotoService.getPhotos(50, page, ApiUtils.API_KEY);
         call.enqueue(new Callback<JsonModel>() {
             @Override
             public void onResponse(Call<JsonModel> call, Response<JsonModel> response) {
                 if(response.body()!=null) {
-                    mListResult.addAll(response.body().getPhotosList());
+                    if (response.body() != null) {
+                        mListResult.addAll(response.body().getPhotosList());
+                    }
                     mImageListAdapter.setData(mListResult);
                     mImageListAdapter.notifyDataSetChanged();
                 }
@@ -120,11 +150,18 @@ public class ImageListFragment extends Fragment implements ImageListAdapter.Item
         });
     }
 
+    /***
+     * simple click listener
+     * @param position position of the adapter
+     */
     @Override
     public void onSimpleClickImageDetailClick(int position) {
         mCallBack.onClickGridElement(mListResult, position);
     }
 
+    /***
+     * grid element listener
+     */
     public interface GridElementListener {
         void onClickGridElement(List<Photos> dataSet, int position);
     }
