@@ -3,6 +3,7 @@ package com.applaudostudio.weeksevenchallengeone.activity;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity implements ImageListFragment
     private FragmentTransaction mTransaction;
     private final static int PERMISSION_REQUEST_CODE = 0;
 
+
+    /****
+     * Load de grid fragment and the toolbar
+     * @param savedInstanceState dunble on save state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,14 +57,19 @@ public class MainActivity extends AppCompatActivity implements ImageListFragment
 
     }
 
-
+    /***
+     * Fnction to request permisions
+     * @param requestCode code for "0" for the permision of files
+     * @param permissions array of permissions
+     * @param grantResults result granted
+     */
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mTransaction.commit();
-                    //Permission Granted Successfully. Write working code here.
+                    //Permission Granted Successfully.
                 } else {
                     //You did not accept the request can not use the functionality.
                     checkAndRequestPermissions();
@@ -70,10 +81,16 @@ public class MainActivity extends AppCompatActivity implements ImageListFragment
     @Override
     protected void onResume() {
         super.onResume();
+        //If the action bar is hidde on the detail view this will hide it
         if (getSupportActionBar() != null)
             getSupportActionBar().show();
     }
 
+    /***
+     * Listener for the click on the grid
+     * @param dataSet data set downloader from the api
+     * @param position position selected on the grid
+     */
     @Override
     public void onClickGridElement(List<Photos> dataSet, int position) {
         FragmentManager manager = getSupportFragmentManager();
@@ -91,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements ImageListFragment
         }
     }
 
+    /***
+     * callback for de detail simple click
+     * @param status boolean status for the bar
+     */
     @Override
     public void viewClickListener(boolean status) {
         if (getSupportActionBar() != null) {
@@ -102,7 +123,10 @@ public class MainActivity extends AppCompatActivity implements ImageListFragment
         }
     }
 
-
+    /***
+     * check the permisson to write files for cache
+     * @return return true or false
+     */
     private boolean checkAndRequestPermissions() {
 
         //Here i am checking for account Permission

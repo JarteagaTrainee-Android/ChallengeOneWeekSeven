@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class DetailFragment extends Fragment implements ImageListAdapter.ItemSelectorLongListener {
+public class    DetailFragment extends Fragment implements ImageListAdapter.ItemSelectorLongListener {
     private static final String KEY_ARG_DATASET = "DATA_SET";
     private static final String KEY_ARG_POSITION = "DATA_POSITION";
     private ToolbarStatusListener mCallBack;
@@ -39,7 +39,12 @@ public class DetailFragment extends Fragment implements ImageListAdapter.ItemSel
         // Required empty public constructor
     }
 
-
+    /***
+     * Function to generate instances of detail fragment
+     * @param mDataSet data set
+     * @param position position for init load
+     * @return returns the a instance of the fragment
+     */
     public static DetailFragment newInstance(List<Photos> mDataSet, int position) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
@@ -49,6 +54,10 @@ public class DetailFragment extends Fragment implements ImageListAdapter.ItemSel
         return fragment;
     }
 
+    /***
+     * get the arguments of the fragment
+     * @param savedInstanceState bundle for save instance
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +68,13 @@ public class DetailFragment extends Fragment implements ImageListAdapter.ItemSel
         }
     }
 
+    /***
+     * function to inflate the view and init the butterknife
+     * @param inflater xml inflater
+     * @param container view group container
+     * @param savedInstanceState bundle for saved instance
+     * @return returns a inflated view.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,12 +84,19 @@ public class DetailFragment extends Fragment implements ImageListAdapter.ItemSel
         return v;
     }
 
+    /***
+     * on destoy notify the activity to show the toolbar
+     */
     @Override
     public void onDestroy() {
         mCallBack.viewClickListener(false);
         super.onDestroy();
     }
 
+    /***
+     * funtion to init the adapter an set the data for the gallery view.
+     * @param savedInstanceState bundle for saveinstance
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -87,12 +110,20 @@ public class DetailFragment extends Fragment implements ImageListAdapter.ItemSel
 
     }
 
+    /***
+     * get the context for the callback
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         mCallBack = (ToolbarStatusListener) context;
         super.onAttach(context);
     }
 
+    /***
+     * simple click to show and hide the toolbar
+     * @param position position of the adapter
+     */
     @Override
     public void onSimpleClickImageDetailClick(int position) {
         mCallBack.viewClickListener(mToolBarStatus);
@@ -103,13 +134,19 @@ public class DetailFragment extends Fragment implements ImageListAdapter.ItemSel
         }
     }
 
+    /***
+     * long click to show the bottom sheet
+     * @param position position clicked
+     */
     @Override
     public void onLongClickImageDetailClick(int position) {
         BottomSheetFragment bsdFragment = BottomSheetFragment.newInstance(mDataSet.get(position));
         bsdFragment.show(getFragmentManager(), getString(R.string.tag_bottomSheet));
     }
 
-
+    /***
+     * listener for the toolbar status
+     */
     public interface ToolbarStatusListener {
         void viewClickListener(boolean status);
     }

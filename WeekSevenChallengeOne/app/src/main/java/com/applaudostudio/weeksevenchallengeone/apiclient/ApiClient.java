@@ -17,7 +17,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient  {
     private static Retrofit retrofit = null;
 
-
+    /***
+     * Client for the retrofit
+     * @param url bae url
+     * @return return a Retrofit object
+     */
     public static Retrofit getClient(String url) {
         int cacheSize = 10 * 1024 * 1024; // 10 MB
         Cache cache;
@@ -31,11 +35,14 @@ public class ApiClient  {
                 .baseUrl(url)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
+        retrofit = builder.build();
         return retrofit;
     }
 
 
+    /***
+     * Interceptor for the retrofit client on offline data
+     */
     public static class offLineInterceptor implements Interceptor {
         ConnectionManager networkUtils = new ConnectionManager(ApplicationCon.getContext());
 
@@ -51,6 +58,9 @@ public class ApiClient  {
         }
     }
 
+    /***
+     * Interceptor for the api requests
+     */
     public static class ApiInterceptor implements Interceptor {
 
         @Override

@@ -39,13 +39,14 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
     private ItemSelectedSimpleListener mCallback;
     private int mViewType;
 
-
+    //Adapter for the gallery and the grid
     public ImageListAdapter(List<Photos> mDataSet, ItemSelectedSimpleListener callback, int viewType) {
         this.mDataSet = mDataSet;
         mCallback = callback;
         mViewType = viewType;
     }
 
+    //Function to set the data and notify the changes
     public void setData(List<Photos> mDataSet) {
         this.mDataSet = mDataSet;
         this.notifyDataSetChanged();
@@ -69,6 +70,11 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
         return new ImageListViewHolder(view);
     }
 
+    /***
+     * Function to bind the data
+     * @param imageListViewHolder viewholder for images
+     * @param i position
+     */
     @Override
     public void onBindViewHolder(@NonNull ImageListViewHolder imageListViewHolder, int i) {
         imageListViewHolder.bindData(mDataSet.get(i));
@@ -79,6 +85,11 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
         return mDataSet.size();
     }
 
+    /***
+     * Function to get the item
+     * @param position position of the adapter
+     * @return returns 0 or 1
+     */
     @Override
     public int getItemViewType(int position) {
         if (mViewType == VIEW_TYPE_GRID) {
@@ -105,18 +116,23 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
         }
 
         @OnClick(R.id.imageLayoutContainer)
-        public void clickView(View view) {
+        public void clickView() {
             mCallback.onSimpleClickImageDetailClick(getAdapterPosition());
         }
 
         @OnLongClick(R.id.imageLayoutContainer)
-        public boolean longClickView(View view) {
+        public boolean longClickView() {
             if (mCallback instanceof ItemSelectorLongListener) {
                 ((ItemSelectorLongListener) mCallback).onLongClickImageDetailClick(getAdapterPosition());
             }
             return true;
         }
 
+
+        /***
+         * Function to bind the data to the correct view element
+         * @param item item to bind the data
+         */
         void bindData(Photos item) {
             GlideApp.with(container)
                     .load(item.getImg_src())

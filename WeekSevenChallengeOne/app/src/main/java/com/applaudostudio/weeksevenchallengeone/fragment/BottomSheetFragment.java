@@ -2,6 +2,7 @@ package com.applaudostudio.weeksevenchallengeone.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.ShareActionProvider;
@@ -27,9 +28,14 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     TextView txtLaunch;
     @BindView(R.id.textShare)
     TextView txtShare;
-    private ShareActionProvider mShareActionProvider;
+
     Photos mItem;
 
+    /***
+     * instace of the fragment
+     * @param item with the data
+     * @return returns a fragment instacne
+     */
     static BottomSheetFragment newInstance(Photos item) {
         BottomSheetFragment sheetFragment = new BottomSheetFragment();
         Bundle argBundle = new Bundle();
@@ -39,41 +45,64 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     }
 
+    /***
+     * Create to get the data on on thte params
+     * @param savedInstanceState bundle saved
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mItem = getArguments().getParcelable(ARG_DATA);
         }
-
-
     }
 
+    /***
+     * Inflate the view and init the butter
+     * @param inflater the view inflater
+     * @param container view group container
+     * @param savedInstanceState saved dunble
+     * @return returns the view
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.bottom_sheet_item, container, false);
         ButterKnife.bind(this, v);
         return v;
     }
 
-
+    /***
+     * set the data on the correct place
+     * @param savedInstanceState bundle saved
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        txtTitle.setText(mItem.getCamera().getName());
-        txtLanding.setText(mItem.getRover().getLanding_date());
-        txtLaunch.setText(mItem.getRover().getLaunch_date());
+        bindData();
     }
 
 
+    /***
+     * click to share the image
+     *
+     */
     @OnClick(R.id.textShare)
-    void shareItem(View view){
+    void shareItem(){
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT,
-                "Hey check this NASA IMAGE at: "+mItem.getImg_src());
+                mItem.getImg_src());
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
 
+    }
+
+    /**
+     * load view data
+     */
+    private void bindData(){
+        txtTitle.setText(mItem.getCamera().getName());
+        txtLanding.setText(mItem.getRover().getLanding_date());
+        txtLaunch.setText(mItem.getRover().getLaunch_date());
     }
 }
